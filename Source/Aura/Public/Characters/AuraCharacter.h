@@ -18,15 +18,21 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 
 public:
 	AAuraCharacter();
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
 
 private:
-	void SetupCamera();
-	void SetupMovement();
-
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	UCameraComponent* FollowCamera;
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
+
+	void SetupCamera();
+	void SetupMovement();
+
+	void InitAbilityActorInfo();
+
+	
 	
 };
