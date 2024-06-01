@@ -12,6 +12,11 @@ AAuraCharacterBase::AAuraCharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+int32 AAuraCharacterBase::GetPlayerLevel()
+{
+	return 0;
+}
+
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
