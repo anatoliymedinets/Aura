@@ -70,7 +70,9 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 
-	InitializePrimaryAttributes();
+	const float Level = 1.f;
+
+	InitializeDefaultsAttributes(Level);
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)
