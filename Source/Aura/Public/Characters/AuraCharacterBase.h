@@ -44,12 +44,16 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	void InitializeDefaultsAttributes(float Level) const;
 
 private:
 	void InitializePrimaryAttributes(float Level) const;
 	void InitializeSecondaryAttributes(float Level) const;
+	void InitializeVitalAttributes() const;
 
 public:	
 	// Inherited function from IAbilitySystemInterface

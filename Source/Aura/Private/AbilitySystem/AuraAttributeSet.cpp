@@ -8,12 +8,6 @@
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
-UAuraAttributeSet::UAuraAttributeSet()
-{
-	InitHealth(50.f);
-	InitMana(50.f);
-}
-
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

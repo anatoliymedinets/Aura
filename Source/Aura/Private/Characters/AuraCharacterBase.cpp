@@ -41,6 +41,7 @@ void AAuraCharacterBase::InitializeDefaultsAttributes(float Level) const
 {
 	InitializePrimaryAttributes(Level);
 	InitializeSecondaryAttributes(Level);
+	InitializeVitalAttributes();
 }
 
 void AAuraCharacterBase::InitializePrimaryAttributes(float Level) const
@@ -51,6 +52,11 @@ void AAuraCharacterBase::InitializePrimaryAttributes(float Level) const
 void AAuraCharacterBase::InitializeSecondaryAttributes(float Level) const
 {
 	ApplyEffectToSelf(DefaultSecondaryAttributes, Level);
+}
+
+void AAuraCharacterBase::InitializeVitalAttributes() const
+{
+	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
 
 
