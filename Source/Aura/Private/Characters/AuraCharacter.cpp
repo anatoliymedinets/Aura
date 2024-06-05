@@ -70,7 +70,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 
-	const float Level = 1.f;
+	const float Level = GetPlayerLevel();
 
 	InitializeDefaultsAttributes(Level);
 }
