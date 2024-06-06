@@ -1,7 +1,9 @@
 // Copyright AM Company
 
 #include "Characters/AuraCharacterBase.h"
+
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -42,6 +44,14 @@ void AAuraCharacterBase::InitializeDefaultsAttributes(float Level) const
 	InitializePrimaryAttributes(Level);
 	InitializeSecondaryAttributes(Level);
 	InitializeVitalAttributes();
+}
+
+void AAuraCharacterBase::AddCharacterAbilities()
+{
+	if (!HasAuthority()) return;
+
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	AuraASC->AddCharacterAbilities(StartupAbilities);
 }
 
 void AAuraCharacterBase::InitializePrimaryAttributes(float Level) const
