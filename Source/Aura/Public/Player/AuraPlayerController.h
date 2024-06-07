@@ -12,6 +12,7 @@ class UInputAction;
 struct FInputActionValue;
 class IEnemyInterface;
 class UAuraInputConfig;
+class UAuraAbilitySystemComponent;
 /**
  * 
  */
@@ -41,6 +42,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
 
+	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
+
 	void Move(const FInputActionValue& InputActionValue);
 
 	void CursorTrace();
@@ -48,6 +51,8 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UAuraAbilitySystemComponent* GetASC();
 
 
 
