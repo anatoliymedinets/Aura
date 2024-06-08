@@ -13,6 +13,7 @@ struct FInputActionValue;
 class IEnemyInterface;
 class UAuraInputConfig;
 class UAuraAbilitySystemComponent;
+class USplineComponent;
 /**
  * 
  */
@@ -54,7 +55,19 @@ private:
 
 	UAuraAbilitySystemComponent* GetASC();
 
+	// Переменная, которая хранит место на которое кликнули
+	FVector CachedDestination = FVector::ZeroVector;
+	// Отслеживать сколько время следуем за курсором
+	float FollowTime = 0.f;
+	// Отслеживать сколько время держим курсор мыши, прежде чем отпустить
+	float ShortPressThreshold = 0.5f;
+	bool bAutoRunning = false;
+	bool bTargetting = false;
+	// Радиус от того места, куда нужно чтоб персонаж наблизился, чтоб отключить движение - bAutoRunning
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	float AutoRunAcceptanceRadius = 50.f;
 
-
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
 	
 };
