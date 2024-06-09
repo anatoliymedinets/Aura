@@ -25,7 +25,7 @@ void AAuraCharacter::SetupCamera()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(GetRootComponent());
 	SpringArm->AddWorldRotation(FRotator(-45.f, 0.f, 0.f).Quaternion());
-	SpringArm->TargetArmLength = 750.f;
+	SpringArm->TargetArmLength = 700.f;
 	SpringArm->bUsePawnControlRotation = false;
 	SpringArm->bEnableCameraLag = true;
 	SpringArm->bInheritPitch = false;

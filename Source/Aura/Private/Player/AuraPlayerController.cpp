@@ -134,7 +134,7 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	if (bTargeting)
 	{
 		if (GetASC() == nullptr) return;
-		GetASC()->AbilityInputTagReleased(InputTag);
+		GetASC()->AbilityInputTagHeld(InputTag);
 	}
 	else
 	{
