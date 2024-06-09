@@ -49,6 +49,8 @@ private:
 
 	void CursorTrace();
 
+	FHitResult CursorHit;
+
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
