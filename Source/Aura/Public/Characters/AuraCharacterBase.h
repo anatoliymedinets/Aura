@@ -23,6 +23,7 @@ public:
 
 	/** ICombatInterface */
 	virtual int32 GetPlayerLevel() override;
+	virtual FVector GetCombatSocketLocation() override;
 	/** end ICombatInterface */
 
 protected:
@@ -30,6 +31,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName WeaponTipSocketName;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
