@@ -21,7 +21,24 @@ void UTargetDataUnderMouse::Activate()
 	}
 	else
 	{
-		//TODO: We are on the server, so listen for target data.
+		/*
+		*  огда данные от клиента доход€т до сервера - происходит рассылка через делегат
+		* » можно получить этот делегат через AbilitySystemComponent
+		*/
+
+		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
+		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
+
+		//  ак только на сервере будет вызвана активаци€, сервер св€жет делегат с функцией
+		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UTargetDataUnderMouse::OnTargetDataReplicatedCallback);
+
+		// ѕроверка дошел ли делегат до сервера
+		const bool bCalledDelegate = AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(SpecHandle, ActivationPredictionKey);
+		if (!bCalledDelegate)
+		{
+			// «аставить сервер ожидать данных от игрока
+			SetWaitingOnRemotePlayerData();
+		}
 	}
 }
 
@@ -52,6 +69,19 @@ void UTargetDataUnderMouse::SendMouseCursorData()
 		FGameplayTag(),
 		AbilitySystemComponent->ScopedPredictionKey);
 
+	if (ShouldBroadcastAbilityTaskDelegates())
+	{
+		ValidData.Broadcast(DataHandle);
+	}
+}
+
+void UTargetDataUnderMouse::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& DataHandle, FGameplayTag ActivationTag)
+{
+	/*
+	*  огда данные доход€т до сервера, AbilitySystem сохранеет их в кеше
+	*  од ниже указывает, что он получил данные и не нужно их больше хранить - очисти кеш
+	*/
+	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
 	if (ShouldBroadcastAbilityTaskDelegates())
 	{
 		ValidData.Broadcast(DataHandle);
