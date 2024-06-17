@@ -70,9 +70,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 
-	const float Level = GetPlayerLevel();
-
-	InitializeDefaultsAttributes(Level);
+	InitializeDefaultsAttributes();
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)

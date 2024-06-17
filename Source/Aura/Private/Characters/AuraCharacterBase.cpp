@@ -54,10 +54,10 @@ void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> Gameplay
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
 }
 
-void AAuraCharacterBase::InitializeDefaultsAttributes(float Level) const
+void AAuraCharacterBase::InitializeDefaultsAttributes() const
 {
-	InitializePrimaryAttributes(Level);
-	InitializeSecondaryAttributes(Level);
+	InitializePrimaryAttributes();
+	InitializeSecondaryAttributes();
 	InitializeVitalAttributes();
 }
 
@@ -69,19 +69,22 @@ void AAuraCharacterBase::AddCharacterAbilities()
 	AuraASC->AddCharacterAbilities(StartupAbilities);
 }
 
-void AAuraCharacterBase::InitializePrimaryAttributes(float Level) const
+void AAuraCharacterBase::InitializePrimaryAttributes() const
 {
+	const float Level = 1.f;
 	ApplyEffectToSelf(DefaultPrimaryAttributes, Level);
 }
 
-void AAuraCharacterBase::InitializeSecondaryAttributes(float Level) const
+void AAuraCharacterBase::InitializeSecondaryAttributes() const
 {
+	const float Level = 1.f;
 	ApplyEffectToSelf(DefaultSecondaryAttributes, Level);
 }
 
 void AAuraCharacterBase::InitializeVitalAttributes() const
 {
-	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+	const float Level = 1.f;
+	ApplyEffectToSelf(DefaultVitalAttributes, Level);
 }
 
 
