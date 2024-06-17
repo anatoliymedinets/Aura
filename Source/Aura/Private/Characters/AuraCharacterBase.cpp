@@ -87,4 +87,9 @@ void AAuraCharacterBase::InitializeVitalAttributes() const
 	ApplyEffectToSelf(DefaultVitalAttributes, Level);
 }
 
+UAnimMontage* AAuraCharacterBase::GetHitReactMontage_Implementation()
+{
+	return HitReactMontage;
+}
+
 
