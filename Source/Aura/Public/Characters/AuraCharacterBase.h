@@ -25,9 +25,13 @@ public:
 	/** ICombatInterface */
 	virtual int32 GetPlayerLevel() override;
 	virtual FVector GetCombatSocketLocation() override;
+	virtual void Die() override;
 	/** end ICombatInterface */
 
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastHandleDeath();
 
 protected:
 	virtual void BeginPlay() override;
