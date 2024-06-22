@@ -60,7 +60,11 @@ void AAuraCharacter::InitAbilityActorInfo()
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();
 
-	// GetController() всегда valid на сервере и на локально управляемом Character
+	/* 32 */
+	/*  GetController() всегда valid : 
+	 *	- Server - для любого Character
+	 *	- Client - только для локально управляемго Character 
+	*/
 	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
 	{
 		// HUD valid только для локально управляемого Character
@@ -69,6 +73,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
+	/* end 32*/
 
 	InitializeDefaultsAttributes();
 }
