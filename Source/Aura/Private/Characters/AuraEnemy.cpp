@@ -120,6 +120,16 @@ void AAuraEnemy::Die()
 	Super::Die();
 }
 
+void AAuraEnemy::SetCombatTarget_Implementation(AActor* InCombatTarget)
+{
+	CobmatTarget = InCombatTarget;
+}
+
+AActor* AAuraEnemy::GetCombatTarget_Implementation() const
+{
+	return CobmatTarget;
+}
+
 void AAuraEnemy::InitAbilityActorInfo()
 {
 	check(AbilitySystemComponent);
