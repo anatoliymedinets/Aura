@@ -25,6 +25,8 @@ public:
 	/** ICombatInterface */
 	virtual int32 GetPlayerLevel() override;
 	virtual FVector GetCombatSocketLocation_Implementation() override;
+	virtual bool IsDead_Implementation() const override;
+	virtual AActor* GetAvatar_Implementation() override;
 	virtual void Die() override;
 	/** end ICombatInterface */
 
@@ -35,6 +37,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	bool bDead = false;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
