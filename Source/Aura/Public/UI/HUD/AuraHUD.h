@@ -21,10 +21,10 @@ class AURA_API AAuraHUD : public AHUD
 	GENERATED_BODY()
 
 public:
-	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams); // 32
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
 
-	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS); // 32
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 
 private:
 

@@ -47,6 +47,7 @@ void AAuraPlayerController::BeginPlay()
 
 	FInputModeGameAndUI InputModeData;
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	// InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
 }

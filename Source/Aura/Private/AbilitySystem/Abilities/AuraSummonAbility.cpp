@@ -11,7 +11,6 @@ TArray<FVector> UAuraSummonAbility::GetSpawnLocations()
 	const float DeltaSpread = SpawnSpread / NumMinions;
 
 	const FVector LeftOfSpread = Forward.RotateAngleAxis(-SpawnSpread / 2.f, FVector::UpVector);
-	const FVector RightOfSpread = Forward.RotateAngleAxis(SpawnSpread / 2.f, FVector::UpVector);
 
 	TArray<FVector> SpawnLocations;
 	bool IsTrySpawnClose = true;
