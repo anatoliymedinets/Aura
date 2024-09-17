@@ -26,8 +26,8 @@ void UTargetDataUnderMouse::Activate()
 		* И можно получить этот делегат через AbilitySystemComponent
 		*/
 
-		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
-		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
+		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle(); 
+		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey(); // Ключ который был сгенерирован при вызове TryActivateAbility (активации способности с клиента)
 
 		// Как только на сервере будет вызвана активация, сервер свяжет делегат с функцией
 		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UTargetDataUnderMouse::OnTargetDataReplicatedCallback);
@@ -62,6 +62,10 @@ void UTargetDataUnderMouse::SendMouseCursorData()
 	FGameplayAbilityTargetDataHandle DataHandle;
 	DataHandle.Add(Data);
 
+	/*
+	* Отправляет данные на сервер (Хотя в названии и указано Replicated). 
+	* В GAS много функций имеют такой суфикс независимо от того является ли это RPC or Replication
+	*/ 
 	AbilitySystemComponent->ServerSetReplicatedTargetData(
 		GetAbilitySpecHandle(),
 		GetActivationPredictionKey(),
@@ -69,6 +73,7 @@ void UTargetDataUnderMouse::SendMouseCursorData()
 		FGameplayTag(),
 		AbilitySystemComponent->ScopedPredictionKey);
 
+	// Транслирует данные локально об успешном получении Target Data (положении курсора в нашем случае)
 	if (ShouldBroadcastAbilityTaskDelegates())
 	{
 		ValidData.Broadcast(DataHandle);
@@ -79,6 +84,7 @@ void UTargetDataUnderMouse::OnTargetDataReplicatedCallback(const FGameplayAbilit
 {
 	/*
 	* Когда данные доходят до сервера, AbilitySystem сохранеет их в кеше
+	* Кеш состоит из Map в котором хранится AbilitySpeckHandle и PredictionKey
 	* Код ниже указывает, что он получил данные и не нужно их больше хранить - очисти кеш
 	*/
 	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());

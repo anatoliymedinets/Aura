@@ -89,7 +89,7 @@ void AAuraCharacterBase::InitializeDefaultsAttributes() const
 	InitializeVitalAttributes();
 }
 
-void AAuraCharacterBase::AddCharacterAbilities()
+void AAuraCharacterBase::AddCharacterStartupAbilities()
 {
 	if (!HasAuthority()) return;
 
