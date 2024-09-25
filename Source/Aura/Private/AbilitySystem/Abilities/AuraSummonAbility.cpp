@@ -33,7 +33,17 @@ TArray<FVector> UAuraSummonAbility::GetSpawnLocations()
 			RandomDistance = FMath::RandRange(MinSpawnDistance, MaxSpawnDistance);
 		}
 		
-		const FVector ChosenSpawnLocation = Location + Direction * RandomDistance;
+		FVector ChosenSpawnLocation = Location + Direction * RandomDistance;
+
+		// Проверка на неровности (холм, ступеньки ...)
+		FHitResult Hit;
+		GetWorld()->LineTraceSingleByChannel(Hit, ChosenSpawnLocation + FVector(0, 0, 400.f), ChosenSpawnLocation + FVector(0, 0, -400.f),ECC_Visibility);
+
+		if (Hit.bBlockingHit)
+		{
+			ChosenSpawnLocation = Hit.ImpactPoint;
+		}
+
 
 		SpawnLocations.Add(ChosenSpawnLocation);
 		IsTrySpawnClose = !IsTrySpawnClose;
