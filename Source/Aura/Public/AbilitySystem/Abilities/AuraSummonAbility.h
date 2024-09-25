@@ -36,5 +36,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Summoning")
 	bool IsLadderSpawn = true;
+
+	UFUNCTION(BlueprintPure, Category = "Summoning")
+	TSubclassOf<APawn> GetRandomMinionClass();
 };
 
