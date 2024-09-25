@@ -19,6 +19,7 @@ class AURA_API UAuraProjectileSpell : public UAuraDamageGameplayAbility
 	
 protected:
 
+	// Пример переопределения функции активации. ActivateAbility делать на стороне Blueprint (рекомендация GAS)
 	virtual void ActivateAbility(
 		const FGameplayAbilitySpecHandle Handle, 
 		const FGameplayAbilityActorInfo* ActorInfo, 

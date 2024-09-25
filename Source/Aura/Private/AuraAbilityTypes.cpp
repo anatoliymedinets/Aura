@@ -43,7 +43,7 @@ bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bo
 		}
 	}
 
-	Ar.SerializeBits(&RepBits, 9);
+	Ar.SerializeBits(&RepBits, 9); // Сериализация первых 9 бит, которые используются под переменные
 
 	if (RepBits & (1 << 0))
 	{

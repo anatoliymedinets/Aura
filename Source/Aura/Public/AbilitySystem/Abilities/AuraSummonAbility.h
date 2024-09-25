@@ -33,5 +33,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Summoning")
 	float SpawnSpread = 100.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Summoning")
+	bool IsLadderSpawn = true;
 };
 

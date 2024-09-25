@@ -12,15 +12,27 @@ TArray<FVector> UAuraSummonAbility::GetSpawnLocations()
 
 	const FVector LeftOfSpread = Forward.RotateAngleAxis(-SpawnSpread / 2.f, FVector::UpVector);
 
+	// UKismetSystemLibrary::DrawDebugArrow(GetAvatarActorFromActorInfo(), Location, Location + LeftOfSpread * MaxSpawnDistance, 4.f, FLinearColor::Green, 2.f, 2.f);
+	// UKismetSystemLibrary::DrawDebugArrow(GetAvatarActorFromActorInfo(), Location, Location + Forward.RotateAngleAxis(SpawnSpread / 2.f, FVector::UpVector) * MaxSpawnDistance, 4.f, FLinearColor::Green, 2.f, 2.f);
+
 	TArray<FVector> SpawnLocations;
-	bool IsTrySpawnClose = true;
+	bool IsTrySpawnClose = true; // need only if IsLadderSpawn = true
+
 	for (int32 i = 0; i < NumMinions; i++)
 	{
 		const FVector Direction = LeftOfSpread.RotateAngleAxis(DeltaSpread * i, FVector::UpVector);
 
 		float RandomDistance;
-		if (IsTrySpawnClose) RandomDistance = FMath::RandRange(MinSpawnDistance, MaxSpawnDistance / 2);
-		else RandomDistance = FMath::RandRange(MaxSpawnDistance / 2, MaxSpawnDistance);
+		if (IsLadderSpawn)
+		{
+			if (IsTrySpawnClose) RandomDistance = FMath::RandRange(MinSpawnDistance, MaxSpawnDistance / 2);
+			else RandomDistance = FMath::RandRange(MaxSpawnDistance / 2, MaxSpawnDistance);
+		}
+		else 
+		{
+			RandomDistance = FMath::RandRange(MinSpawnDistance, MaxSpawnDistance);
+		}
+		
 		const FVector ChosenSpawnLocation = Location + Direction * RandomDistance;
 
 		SpawnLocations.Add(ChosenSpawnLocation);

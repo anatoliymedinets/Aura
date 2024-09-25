@@ -83,6 +83,7 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 
+	// GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, FString("PreAttributeChange"));
 	ClampAttributeValue(Attribute, NewValue);
 }
 
@@ -90,12 +91,15 @@ void UAuraAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribu
 {
 	Super::PreAttributeBaseChange(Attribute, NewValue);
 
+	// GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, FString("PreAttributeBaseChange"));
 	ClampAttributeValue(Attribute, NewValue);
 }
 
 void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+
+	// GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, FString("PostGameplayEffectExecute"));
 
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);

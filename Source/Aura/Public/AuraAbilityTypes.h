@@ -19,6 +19,7 @@ public:
 	/** Returns the actual struct used for serialization, subclasses must override this! */
 	virtual UScriptStruct* GetScriptStruct() const
 	{
+		// StaticStruct подобно как и StaticClass для классов - возвращает UObject для типа, делая его возможным для участия в reflection system
 		return StaticStruct();
 	}
 

@@ -13,9 +13,12 @@
 
 struct AuraDamageStatics
 {
+	// ----------------------------------------------------------------------------
+	// DECLARE_ATTRIBUTE_CAPTUREDEF(SourceArmor);
+	// ----------------------------------------------------------------------------
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
-	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorPenetration); // 145
-	DECLARE_ATTRIBUTE_CAPTUREDEF(BlockChance); // 144
+	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorPenetration);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(BlockChance);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalHitChance);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalHitResistance);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalHitDamage);
@@ -28,9 +31,16 @@ struct AuraDamageStatics
 
 	AuraDamageStatics()
 	{
+		// ----------------------------------------------------------------------------
+		// DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, Armor, Source, false); // ----  Макрос не работает для захвата одного атрибута у Target и у Source!
+		// SourceArmorDef.AttributeToCapture = UAuraAttributeSet::GetArmorAttribute();
+		// SourceArmorDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Source;
+		// SourceArmorDef.bSnapshot = false;
+		// ----------------------------------------------------------------------------
+
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, Armor, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArmorPenetration, Source, false); // 145
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, BlockChance, Target, false); // 144
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArmorPenetration, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, BlockChance, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalHitChance, Source, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalHitResistance, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalHitDamage, Source, false);
@@ -64,9 +74,19 @@ static const AuraDamageStatics& DamageStatics()
 
 UExecCalc_Damage::UExecCalc_Damage()
 {
-	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef); // захватываем атрибут, который создан через макрос DECLARE_ATTRIBUTE_CAPTUREDEF
-	RelevantAttributesToCapture.Add(DamageStatics().BlockChanceDef); // 144
-	RelevantAttributesToCapture.Add(DamageStatics().ArmorPenetrationDef); // 145
+	// ----------------------------------------------------------------------------
+	//SourceArmDef.AttributeToCapture = UAuraAttributeSet::GetArmorAttribute();  // -------
+	//SourceArmDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Source;  // -------
+	//SourceArmDef.bSnapshot = false;  // -------
+	//RelevantAttributesToCapture.Add(SourceArmDef);  // -------
+
+	// RelevantAttributesToCapture.Add(DamageStatics().SourceArmorDef);
+	// ----------------------------------------------------------------------------
+
+	/** Attributes to capture that are relevant to the calculation */
+	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
+	RelevantAttributesToCapture.Add(DamageStatics().BlockChanceDef);
+	RelevantAttributesToCapture.Add(DamageStatics().ArmorPenetrationDef);
 	RelevantAttributesToCapture.Add(DamageStatics().CriticalHitChanceDef);
 	RelevantAttributesToCapture.Add(DamageStatics().CriticalHitResistanceDef);
 	RelevantAttributesToCapture.Add(DamageStatics().CriticalHitDamageDef);
@@ -126,6 +146,12 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, TargetArmor);
 	TargetArmor = FMath::Max<float>(TargetArmor, 0.f);
 
+	// ----------------------------------------------------------------------------
+	// float SourceArmor = 0.f;
+	// const bool bSuccess = ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().SourceArmorDef, EvaluationParameters, SourceArmor);
+	// const bool bSuccess = ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(SourceArmDef, EvaluationParameters, SourceArmor); // -------
+	// ----------------------------------------------------------------------------
+
 	float SourceArmorPenetration = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorPenetrationDef, EvaluationParameters, SourceArmorPenetration);
 	SourceArmorPenetration = FMath::Max<float>(SourceArmorPenetration, 0.f);
@@ -180,4 +206,6 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 	const FGameplayModifierEvaluatedData EvaluatedData(UAuraAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);
+
+	// GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Orange, FString("ExecCalculation_Damage"));
 }
