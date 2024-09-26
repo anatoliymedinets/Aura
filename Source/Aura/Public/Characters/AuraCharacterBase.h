@@ -33,6 +33,8 @@ public:
 	virtual UNiagaraSystem* GetBloodEffect_Implementation() override;
 	virtual FTaggedMontage GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag) override;
 	virtual int32 GetMinionCount_Implementation() override;
+	virtual void IncrementMinionCount_Implementation(int32 Amount = 1) override;
+	virtual void DecreaseMinionCount_Implementation(int32 Amount = 1) override;
 	/** end ICombatInterface */
 
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
