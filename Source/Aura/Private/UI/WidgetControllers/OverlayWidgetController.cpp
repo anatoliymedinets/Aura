@@ -4,6 +4,7 @@
 #include "UI/WidgetControllers/OverlayWidgetController.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/Data/AbilityInfo.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {
@@ -81,4 +82,20 @@ void UOverlayWidgetController::OnInitializeStartupAbilities(UAuraAbilitySystemCo
 {
 	//TODO: Get information about all given abilities, look up their Ability Info, and broadcast it to widgets.
 	if (!AuraAbilitySystemComponent->bStartupAbilitiesGiven) return;
+
+	FForEachAbility BroadcastDelegate;
+	BroadcastDelegate.BindLambda([this] (const FGameplayAbilitySpec& AbilitySpec)
+		{
+			//TODO: need a way to figgure out ability tag for a given ability spec.
+			
+			// static функции в С++ могут вызываться через экземпляр (не рекомендуется). Чтоб это работало, добавить в захват - [] AuraAbilitySystemComponent
+			// AbilityInfo->FindAbilityInfoForTag(AuraAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
+			FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(UAuraAbilitySystemComponent::GetAbilityTagFromSpec(AbilitySpec));
+			Info.InputTag = UAuraAbilitySystemComponent::GetInputTagFromSpec(AbilitySpec);
+
+			AbilityInfoDelegate.Broadcast(Info);
+		}
+	);
+
+	AuraAbilitySystemComponent->ForEachAbility(BroadcastDelegate);
 }
