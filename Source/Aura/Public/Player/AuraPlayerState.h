@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class ULevelUpInfo;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChanged, int32 /* StatValue */);
 /**
@@ -25,6 +26,9 @@ public:
 
 	FOnPlayerStatChanged OnXpChangedDelegate;
 	FOnPlayerStatChanged OnLevelChangedDelegate;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<ULevelUpInfo> LevelUpInfo;
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -61,5 +65,4 @@ public:
 
 	void SetPlayerLevel(int32 InPlayerLevel);
 	void SetXP(int32 InXP);
-
 };

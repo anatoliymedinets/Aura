@@ -36,5 +36,5 @@ public:
 
 	FAuraLevelUpInfo FindLevelUpInformationForXP(const float XP) const;
 
-	int32 FindLevelForXP(int32 XP);
+	int32 FindLevelForXP(int32 XP) const;
 };
