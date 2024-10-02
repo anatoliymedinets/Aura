@@ -46,7 +46,8 @@ public:
 	FGameplayTag Attributes_Resistance_Arcane;
 	FGameplayTag Attributes_Resistance_Physical;
 
-	FGameplayTag Damage;
+	FGameplayTag Attributes_Meta_IncomingXP;
+
 	FGameplayTag Damage_Fire;
 	FGameplayTag Damage_Lightning;
 	FGameplayTag Damage_Arcane;

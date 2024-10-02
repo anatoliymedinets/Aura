@@ -261,6 +261,7 @@ private:
 	void ClampAttributeValue(const FGameplayAttribute& Attribute, float& NewValue) const;
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 	void ShowFloatingText(FEffectProperties& Props, const float& Damage, bool bBlockedHit, bool bCriticalHit) const;
+	void SendXPEvent(const FEffectProperties& Props);
 
 
 	

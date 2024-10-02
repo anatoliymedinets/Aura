@@ -62,7 +62,6 @@ void AAuraCharacter::InitAbilityActorInfo()
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();
 
-	/* 32 */
 	/*  GetController() всегда valid : 
 	 *	- Server - дл€ любого Character
 	 *	- Client - только дл€ локально управл€емго Character 
