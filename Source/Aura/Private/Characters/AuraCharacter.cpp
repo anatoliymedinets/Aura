@@ -16,6 +16,8 @@ AAuraCharacter::AAuraCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	CharacterClass = ECharacterClass::Elementalist;
+
 	SetupCamera();
 	SetupMovement();
 }
