@@ -57,12 +57,12 @@ public:
 	// Custom getter
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
-	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 	FORCEINLINE int32 GetXP() const { return XP; }
+	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 
-	void AddToPlayerLevel(int32 InPlayerLevel);
 	void AddToXP(int32 InXP);
+	void AddToPlayerLevel(int32 InPlayerLevel);
 
-	void SetPlayerLevel(int32 InPlayerLevel);
 	void SetXP(int32 InXP);
+	void SetPlayerLevel(int32 InPlayerLevel);
 };

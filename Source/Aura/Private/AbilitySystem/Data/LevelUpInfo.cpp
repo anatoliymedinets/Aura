@@ -3,19 +3,6 @@
 
 #include "AbilitySystem/Data/LevelUpInfo.h"
 
-FAuraLevelUpInfo ULevelUpInfo::FindLevelUpInformationForXP(const float XP) const
-{
-	for (const FAuraLevelUpInfo& LevelInfo : LevelUpInformation)
-	{
-		if (XP <= LevelInfo.LevelUpRequirement)
-		{
-			return LevelInfo;
-		}
-	}
-
-	return FAuraLevelUpInfo();
-}
-
 int32 ULevelUpInfo::FindLevelForXP(int32 XP) const
 {
 	int32 Level = 1;

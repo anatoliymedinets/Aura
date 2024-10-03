@@ -34,7 +34,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LevelUpInformation")
 	TArray<FAuraLevelUpInfo> LevelUpInformation;
 
-	FAuraLevelUpInfo FindLevelUpInformationForXP(const float XP) const;
-
 	int32 FindLevelForXP(int32 XP) const;
 };

@@ -11,6 +11,7 @@
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
+#include "AbilitySystem/Data/LevelUpInfo.h"
 
 AAuraCharacter::AAuraCharacter()
 {
@@ -94,16 +95,7 @@ void AAuraCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
-void AAuraCharacter::AddToXP_Implementation(int32 InXP)
-{
-	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
-	check(AuraPlayerState);
-	AuraPlayerState->AddToXP(InXP);
-}
-
-void AAuraCharacter::LevelUp_Implementation()
-{
-}
+/** ICombatInterface */
 
 int32 AAuraCharacter::GetPlayerLevel_Implementation()
 {
@@ -112,5 +104,80 @@ int32 AAuraCharacter::GetPlayerLevel_Implementation()
 
 	return AuraPlayerState->GetPlayerLevel();
 }
+
+/** end ICombatInterface */
+
+
+/** IPlayerInterface **/
+
+int32 AAuraCharacter::FindLevelForXP_Implementation(int32 InXP) const
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	return AuraPlayerState->LevelUpInfo->FindLevelForXP(InXP);
+}
+
+int32 AAuraCharacter::GetXP_Implementation()
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	return AuraPlayerState->GetXP();
+}
+
+int32 AAuraCharacter::GetAttributePointsReward_Implementation(int32 Level) const
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	return AuraPlayerState->LevelUpInfo->LevelUpInformation[Level].AttributePointAward;
+}
+
+int32 AAuraCharacter::GetSpellPointsReward_Implementation(int32 Level) const
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	return AuraPlayerState->LevelUpInfo->LevelUpInformation[Level].SpellPointAward;
+}
+
+void AAuraCharacter::AddToXP_Implementation(int32 InXP)
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+	AuraPlayerState->AddToXP(InXP);
+}
+
+void AAuraCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	//TODO: Add AttributePoints to PlayerState
+}
+
+void AAuraCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+
+	//TODO: Add SpellPoints to PlayerState
+}
+
+void AAuraCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+	AuraPlayerState->AddToPlayerLevel(InPlayerLevel);
+}
+
+void AAuraCharacter::LevelUp_Implementation()
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+}
+
+/** end IPlayerInterface **/
 
 
