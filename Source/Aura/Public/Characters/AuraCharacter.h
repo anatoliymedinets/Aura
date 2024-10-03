@@ -9,6 +9,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UNiagaraComponent;
 /**
  * 
  */
@@ -38,6 +39,9 @@ public:
 	virtual int32 GetPlayerLevel_Implementation() override;
 	/** end ICombatInterface */
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
+
 protected:
 	virtual void InitAbilityActorInfo() override;
 
@@ -50,5 +54,8 @@ private:
 
 	void SetupCamera();
 	void SetupMovement();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastLevelUpParticles() const;
 
 };
