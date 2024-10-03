@@ -31,11 +31,6 @@ void AAuraCharacterBase::BeginPlay()
 
 }
 
-int32 AAuraCharacterBase::GetPlayerLevel()
-{
-	return 0;
-}
-
 FVector AAuraCharacterBase::GetCombatSocketLocation_Implementation(const FGameplayTag& CombatSocketTag)
 {
 	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();

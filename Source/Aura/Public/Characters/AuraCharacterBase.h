@@ -25,7 +25,6 @@ public:
 	AAuraCharacterBase();
 
 	/** ICombatInterface */
-	virtual int32 GetPlayerLevel() override;
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& CombatSocketTag) override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;

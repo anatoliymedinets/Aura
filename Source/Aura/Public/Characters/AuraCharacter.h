@@ -24,10 +24,11 @@ public:
 
 	/** IPlayerInterface **/
 	virtual void AddToXP_Implementation(int32 InXP) override;
+	virtual void LevelUp_Implementation() override;
 	/** end IPlayerInterface **/
 
 	/** ICombatInterface */
-	virtual int32 GetPlayerLevel() override;
+	virtual int32 GetPlayerLevel_Implementation() override;
 	/** end ICombatInterface */
 
 protected:
