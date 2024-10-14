@@ -26,10 +26,6 @@ void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 	AuraPlayerState->OnAttributePointsChangedDelegate.AddLambda([this](int32 InAttributePoints) {
 		AttributePointsChangedDelegate.Broadcast(InAttributePoints);
 	});
-
-	AuraPlayerState->OnSpellPointsChangedDelegate.AddLambda([this](int32 InSpellPoints) {
-		SpellPointsChangedDelegate.Broadcast(InSpellPoints);
-	});
 }
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
@@ -41,6 +37,10 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 	{
 		BroadcastAttributeInfo(Pair.Key, Pair.Value());
 	}
+
+	AAuraPlayerState* AuraPlayerState = CastChecked<AAuraPlayerState>(PlayerState);
+
+	AttributePointsChangedDelegate.Broadcast(AuraPlayerState->GetAttributePoints());
 
 }
 
