@@ -97,6 +97,24 @@ void UAuraAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribu
 	ClampAttributeValue(Attribute, NewValue);
 }
 
+void UAuraAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+{
+	Super::PostAttributeChange(Attribute, OldValue, NewValue);
+
+	// ѕосле повышени€ уровн€ значени€ MaxHealth и MaxMana будут изменены по Curve Table
+
+	if (Attribute == GetMaxHealthAttribute() && bTopOffHealth)
+	{
+		SetHealth(GetMaxHealth());
+		bTopOffHealth = false;
+	}
+	if (Attribute == GetMaxManaAttribute() && bTopOffMana)
+	{
+		SetMana(GetMaxMana());
+		bTopOffMana = false;
+	}
+}
+
 void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
@@ -161,9 +179,8 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				IPlayerInterface::Execute_AddToAttributePoints(Props.SourceCharacter, AttributePointsReward);
 				IPlayerInterface::Execute_AddToSpellPoints(Props.SourceCharacter, SpellPointsReward);
 
-				// Handle complications with this in the lecture "Top off our fliuds"
-				SetHealth(GetMaxHealth());
-				SetMana(GetMaxMana());
+				bTopOffHealth = true;
+				bTopOffMana = true;
 
 				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
 			}
